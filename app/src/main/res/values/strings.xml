@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Mes Depenses</string>
 
-    <string-array name="list">
+    <string-array name="spincategorie">
         <item>Divers</item>
         <item>Nourriture</item>
         <item>Boissons</item>
@@ -11,14 +11,18 @@
     </string-array>
 
 
-    <string-array name="compte">
-        <item>Select une Categorie</item>
+    <string-array name="spincompte">
+        <item>Select un compte</item>
         <item>Cash</item>
         <item>Sogebank</item>
         <item>Unibank</item>
         <item>Mon Cash</item>
     </string-array>
 
+    <string-array name="gestioncompte">
+        <item>Ajouter un compte</item>
+        <item>Visualiser/modifier compte</item>
+    </string-array>
 
     <string-array name="paramgeneraux">
         <item>Devise</item>

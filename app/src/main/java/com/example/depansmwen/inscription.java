@@ -46,23 +46,23 @@ public class inscription extends AppCompatActivity {
                 if (nom.equals("") || prenom.equals("") || username.equals("") || password.equals("") || confirm.equals("")){
                     Toast.makeText(inscription.this, "Tous les champs sont obligatoires!!!", Toast.LENGTH_SHORT).show();
                 }else{
-                      if (password.equals(confirm)){
-                          Boolean checkUsername = accesLocal.checkUsername(username);
-                          if (checkUsername == true){
-                              Boolean insert = accesLocal.signup(nom, prenom, username, password);
-                              if (insert == true){
-                                  Toast.makeText(inscription.this, "enregistrement avec succes!!!  Maintenant Login...", Toast.LENGTH_LONG).show();
-                                  startActivity(new Intent(inscription.this, MainActivity.class));
-                              }
-                          }else {
-                              Toast.makeText(inscription.this, "Le pseudo "+ username + " est deja utilise!!!", Toast.LENGTH_SHORT).show();
-                              txtInputUsername.getEditText().setText("");
-                          }
-                      }else {
-                            Toast.makeText(inscription.this, "Le mot de passe doit etre identique!!!", Toast.LENGTH_SHORT).show();
-                            txtInputPassword.getEditText().setText("");
-                            txtInputConfirm.getEditText().setText("");
-                      }
+                    if (password.equals(confirm)){
+                        Boolean checkUsername = accesLocal.checkUsername(username);
+                        if (checkUsername == true){
+                            Boolean insert = accesLocal.signup(nom, prenom, username, password);
+                            if (insert == true){
+                                Toast.makeText(inscription.this, "enregistrement avec succes!!!  Maintenant Login...", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(inscription.this, MainActivity.class));
+                            }
+                        }else {
+                            Toast.makeText(inscription.this, "Le pseudo "+ username + " est deja utilise!!!", Toast.LENGTH_SHORT).show();
+                            txtInputUsername.getEditText().setText("");
+                        }
+                    }else {
+                        Toast.makeText(inscription.this, "Le mot de passe doit etre identique!!!", Toast.LENGTH_SHORT).show();
+                        txtInputPassword.getEditText().setText("");
+                        txtInputConfirm.getEditText().setText("");
+                    }
                 }
             }
         });

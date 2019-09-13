@@ -9,110 +9,110 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="5dp">
 
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="10dp"
+      android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+      <TextView
+          android:id="@+id/idCat"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+          tools:text="CATEGORIE: " />
 
-            <TextView
-                android:id="@+id/idCat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-                tools:text="CATEGORIE: " />
-
-            <TextView
-                android:id="@+id/tvCategorie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginBottom="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-                tools:text="Sogebank" />
-        </LinearLayout>
-
-        <!--<ImageView-->
-        <!--android:id="@+id/ivImage"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="300dp"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--tools:srcCompat="@tools:sample/backgrounds/scenic[15]" />-->
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/idmont"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-                tools:text="MONTANT: " />
-
-            <TextView
-                android:id="@+id/tvMontant"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="45dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-                tools:text="100 USD" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/idDevise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="75dp"
-                android:layout_marginBottom="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-                tools:text="DEVISE: " />
-
-            <TextView
-                android:id="@+id/tvDevise"
-                android:layout_width="104dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-                tools:text="USD" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/idNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-                tools:text="NOTE: " />
-
-            <TextView
-                android:id="@+id/tvNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Pour le kreyy" />
-        </LinearLayout>
-
+      <TextView
+          android:id="@+id/tvCategorie"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="35dp"
+          android:layout_marginBottom="5dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+          tools:text="Sogebank" />
     </LinearLayout>
+
+    <!--<ImageView-->
+    <!--android:id="@+id/ivImage"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="300dp"-->
+    <!--android:scaleType="centerCrop"-->
+    <!--tools:srcCompat="@tools:sample/backgrounds/scenic[15]" />-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+      <TextView
+          android:id="@+id/idmont"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+          tools:text="MONTANT: " />
+
+      <TextView
+          android:id="@+id/tvMontant"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:layout_marginLeft="45dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+          tools:text="100 USD" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+      <TextView
+          android:id="@+id/idDevise"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginRight="75dp"
+          android:layout_marginBottom="5dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+          tools:text="DEVISE: " />
+
+      <TextView
+          android:id="@+id/tvDevise"
+          android:layout_width="104dp"
+          android:layout_height="match_parent"
+          android:layout_marginBottom="5dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+          tools:text="USD" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+      <TextView
+          android:id="@+id/idNote"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+          tools:text="NOTE: " />
+
+      <TextView
+          android:id="@+id/tvNote"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="Pour le kreyy" />
+    </LinearLayout>
+
+  </LinearLayout>
 </android.support.v7.widget.CardView>

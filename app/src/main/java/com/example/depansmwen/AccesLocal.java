@@ -81,6 +81,21 @@ public class AccesLocal {
         else return true;
     }
 
+    public boolean updateEnregistreCategorie(String oldCategorie,String categorie,  String user){
+        bd = accesBd.getWritableDatabase();
+//        Cursor cursor = bd.rawQuery("Update TableEnregistreCategorie4 set categorie=?, user=? where categorie=? and user=?", new String[]{categorie, user});
+//        if (cursor.getCount() > 0) return true;
+//        else return false;
+
+        ContentValues values = new ContentValues();
+        values.put("categorie", categorie);
+        String CAT="categorie";
+        String USER="user";
+        long ins = bd.update("TableEnregistreCategorie4", values, ""+CAT+"= '"+ oldCategorie+"' AND "+USER+"='"+user+"'" , null);
+        if(ins ==- 1) return false;
+        else return true;
+    }
+
     public boolean deleteEnregistreCategorie(String categorie,  String user){
         bd = accesBd.getWritableDatabase();
         Cursor cursor = bd.rawQuery("Delete from TableEnregistreCategorie4 where categorie=? and user=?", new String[]{categorie, user});
@@ -144,5 +159,22 @@ public class AccesLocal {
         bd.close();
         // returning lables
         return list;
+    }
+
+    public Integer AllDepenseToday() {
+        Integer allDepense = 0;
+
+        bd = accesBd.getReadableDatabase();
+        String sql = "select * from TableCategorie4 where date = '"+currentDateandTime+"' and user = '"+String.valueOf(user.userName())+"' ";
+        ArrayList<InformationToday> list = new ArrayList<>();
+        Cursor cursor = bd.rawQuery(sql, null);
+        if(cursor.moveToLast()){
+            do {
+                String montantBase = cursor.getString(1);
+                allDepense += Integer.parseInt(montantBase);
+            }while (cursor.moveToPrevious());
+        }
+        cursor.close();
+        return allDepense;
     }
 }

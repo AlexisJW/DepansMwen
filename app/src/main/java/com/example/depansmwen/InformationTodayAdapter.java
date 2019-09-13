@@ -1,12 +1,14 @@
 package com.example.depansmwen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,13 +18,9 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
     private ArrayList<InformationToday> listInformationToday;
     private ArrayList<InformationToday> monArrayList;
 
-    public InformationTodayAdapter(Context monContext, ArrayList<InformationToday> listInformationToday) {
-        MonContext = monContext;
-        this.listInformationToday = listInformationToday;
-        this.monArrayList = listInformationToday;
-    }
 
-    public class InformationTodayViewHolder extends RecyclerView.ViewHolder {
+
+    public class InformationTodayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView montantViewHolder;
         public TextView montant;
@@ -44,6 +42,27 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
             noteViewHolder = itemView.findViewById(R.id.tvNote);
             note = itemView.findViewById(R.id.idNote);
         }
+
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION){
+                //Toast.makeText(MonContext , "li klike!!!", Toast.LENGTH_SHORT).show();
+
+                //InformationToday informationToday = listInformationToday.get(position);
+
+                Intent intent = new Intent(MonContext, inscription.class);
+                //intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                MonContext.startActivity(intent);
+            }
+        }
+    }
+
+    public InformationTodayAdapter(Context monContext, ArrayList<InformationToday> listInformationToday) {
+        MonContext = monContext;
+        this.listInformationToday = listInformationToday;
+        this.monArrayList = listInformationToday;
     }
 
     @NonNull

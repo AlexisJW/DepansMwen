@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class Tab_aujourdhui extends Fragment {
     private InformationTodayAdapter monAdapter;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
+    TextView tvAllDepense;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
@@ -33,20 +35,21 @@ public class Tab_aujourdhui extends Fragment {
 
         accesLocal = new AccesLocal(this.getContext());
         recyclerView = (RecyclerView) v.findViewById(R.id.IdRecycleView);
+        tvAllDepense = (TextView) v.findViewById(R.id.tvAllDepense);
         linearLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
         allInformationsToday = accesLocal.ListInformationFromBd();
+        AlldepenseToday();
         if (allInformationsToday.size() > 0){
             recyclerView.setVisibility(View.VISIBLE);
             monAdapter = new InformationTodayAdapter(this.getContext(), allInformationsToday);
             recyclerView.setAdapter(monAdapter);
+            AlldepenseToday();
         }else{
             recyclerView.setVisibility(View.GONE);
             Toast.makeText(this.getContext(), "Il n'a pas d'enregistrement de depense dans la base de donnees pour aujourd'hui!", Toast.LENGTH_LONG).show();
         }
-
-         //Load();
         return v;
     }
 
@@ -56,10 +59,18 @@ public class Tab_aujourdhui extends Fragment {
             recyclerView.setVisibility(View.VISIBLE);
             monAdapter = new InformationTodayAdapter(this.getContext(), allInformationsToday);
             recyclerView.setAdapter(monAdapter);
+            AlldepenseToday();
         }else{
             recyclerView.setVisibility(View.GONE);
             Toast.makeText(this.getContext(), "Il n'a pas d'enregistrement de depense dans la base de donnees pour aujourd'hui!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void AlldepenseToday(){
+
+        Integer all = accesLocal.AllDepenseToday();
+        tvAllDepense.setText("Depense d'aujourd'hui est: "+all);
+        //Toast.makeText(this.getContext(),"All Depense " +all,Toast.LENGTH_LONG).show();
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.depansmwen;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -15,13 +16,14 @@ import java.util.List;
 public class Parametre extends AppCompatActivity {
     AccesLocal accesLocal;
     static MainActivity user;
-     ListView list_cat = null;
-     ListView list_param = null;
-     ListView param = null;
-     View viewModifierCat;
-     View viewDeleteCat;
-     Spinner spinnerModifierCat;
-     Spinner spinnerDeleteCat;
+    ListView list_cat = null;
+    ListView list_param = null;
+    ListView list_compte=null;
+    ListView param = null;
+    View viewModifierCat;
+    View viewDeleteCat;
+    Spinner spinnerModifierCat;
+    Spinner spinnerDeleteCat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +38,36 @@ public class Parametre extends AppCompatActivity {
         list1.add("Devise");
 
 
-         list_cat= findViewById(R.id.list_cat);
-         list_param= findViewById(R.id.list_param1);
-         param= findViewById(R.id.param);
+        list_cat= findViewById(R.id.list_cat);
+        list_param= findViewById(R.id.list_param1);
+        param= findViewById(R.id.param);
+        list_compte=findViewById(R.id.list_compte);
 
-       // ArrayAdapter na = new ArrayAdapter(Parametre.this, R.layout.param_gene, list);
+        // ArrayAdapter na = new ArrayAdapter(Parametre.this, R.layout.param_gene, list);
 //        ArrayAdapter na = new ArrayAdapter(Parametre.this,android.R.layout.simple_list_item_checked,list);
 //        ArrayAdapter na1 = new ArrayAdapter(Parametre.this,android.R.layout.simple_list_item_1,list1);
 //        list_param.setAdapter(na1);
 //        param.setAdapter(na);
+
+        list_compte.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch(position){
+                    case 0:{
+                        Ajouter_compte();
+                    }
+                    break;
+                    case 1:{
+                        Visualiser_compte();
+                    }
+                    break;
+
+                }
+            }
+
+
+        });
 
         list_cat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -53,7 +76,7 @@ public class Parametre extends AppCompatActivity {
                 switch(position){
                     case 0:{
                         Ajouter_categorie();
-                     }
+                    }
                     break;
                     case 1:{
                         Modifier_categorie();
@@ -69,6 +92,34 @@ public class Parametre extends AppCompatActivity {
         loadSpinnerData();
         //loadSpinnerDataForDelete();
     }
+
+    private void Ajouter_compte() {
+        View view=getLayoutInflater().inflate(R.layout.creer_compte,null);
+        Toast.makeText(this,"Ajouter Depense",Toast.LENGTH_SHORT).show();
+        final AlertDialog.Builder depCategorie = new AlertDialog.Builder(Parametre.this);
+        depCategorie.setTitle("Ajouter une Depense");
+        depCategorie.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        depCategorie.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        depCategorie.setView(view);
+        AlertDialog dialog= depCategorie.create();
+        dialog.show();
+    }
+
+    private void Visualiser_compte() {
+
+    }
+
 
     private void loadSpinnerData() {
         List<String> labels = accesLocal.getAllSpinners();
@@ -150,11 +201,6 @@ public class Parametre extends AppCompatActivity {
                             }else{
                                 Toast.makeText(Parametre.this, "echouee!!!", Toast.LENGTH_SHORT).show();
                             }
-//                            Toast.makeText(Parametre.this,"La categorie "+spinner.getSelectedItem().toString()
-//                                            +" a ete bien supprime !",
-//                                    Toast.LENGTH_SHORT)
-//                                    .show();
-
                             dialog.cancel();
                         }
                     });
@@ -164,9 +210,7 @@ public class Parametre extends AppCompatActivity {
                             dialog.cancel();
                         }
                     });
-
                     msupression.show();
-
                 }
 
             }
@@ -196,7 +240,14 @@ public class Parametre extends AppCompatActivity {
         modifCategorie.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                String a = String.valueOf(edit.getText());
+                Boolean modification = accesLocal.updateEnregistreCategorie(spinnerModifierCat.getSelectedItem().toString(), String.valueOf(edit.getText()), String.valueOf(user.userName()));
+                if (modification == true){
+                    Toast.makeText(Parametre.this, "Modification Categorie avec succes!!! "+a, Toast.LENGTH_SHORT).show();
+                    //loadSpinnerDataForDelete();
+                }else{
+                    Toast.makeText(Parametre.this, "echouee!!!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         modifCategorie.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -231,6 +282,7 @@ public class Parametre extends AppCompatActivity {
         AlertDialog dialog= modifCategorie.create();
         dialog.show();
     }
+
 
 
     public void Ajouter_categorie(){

@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -47,6 +48,7 @@ public class accueil extends AppCompatActivity {
     Tab_aujourdhui tab_cat;
     Tab_semaine tab_sem;
     Tab_mois tab_m;
+    Integer allDepense = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,10 @@ public class accueil extends AppCompatActivity {
         currentDateandTime = sdf.format(new Date());
     }
 
+public void ab(){
+    Toast.makeText(accueil.this , "li klike!!!", Toast.LENGTH_SHORT).show();
+}
+
     public String getCurrentDateandTime() {
         return currentDateandTime;
     }
@@ -80,7 +86,7 @@ public class accueil extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch(position){
                 case 0:
-                     tab_cat = new Tab_aujourdhui();
+                    tab_cat = new Tab_aujourdhui();
                     return tab_cat;
                 case 1:
                      tab_sem = new Tab_semaine();
@@ -173,8 +179,8 @@ public class accueil extends AppCompatActivity {
                             if (insert == true){
                                 Toast.makeText(accueil.this, "enregistrement Depense avec succes!!!", Toast.LENGTH_SHORT).show();
                                 tab_cat.refreshTabAujourdhui();
+                                tab_cat.AlldepenseToday();
                                 tab_sem.refreshTabSemaine();
-                                //tab_m.refreshTabMois();
                             }else{
                                 Toast.makeText(accueil.this, "enregistrement echouee!!!", Toast.LENGTH_SHORT).show();
                             }
@@ -191,9 +197,6 @@ public class accueil extends AppCompatActivity {
             depCategorie.setView(view);
             AlertDialog dialog= depCategorie.create();
             dialog.show();
-
-
-
             return true;
         }
 
