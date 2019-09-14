@@ -69,7 +69,30 @@ public class accueil extends AppCompatActivity {
         currentDateandTime = sdf.format(new Date());
     }
 
-public void ab(){
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDeconnect = new AlertDialog.Builder(accueil.this);
+        alertDeconnect.setTitle("Voulez vous deconnecter?");
+        alertDeconnect.setIcon(R.drawable.logo);
+        alertDeconnect.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // finish();
+                System.exit(0);
+            }
+        });
+        // super.onBackPressed();
+        alertDeconnect.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDeconnect.show();
+
+    }
+
+    public void ab(){
     Toast.makeText(accueil.this , "li klike!!!", Toast.LENGTH_SHORT).show();
 }
 
@@ -130,21 +153,22 @@ public void ab(){
     }
 
     private void loadSpinnerData() {
-        List<String> labels = accesLocal.getAllSpinners();
-
+        //spinnerCompte
+        List<String> labels = accesLocal.getAllSpinners1();
+        List<String> labels1 = accesLocal.getAllSpinnerscompte1();
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels);
+        ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels1);
         //ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, labels);
-
         view=getLayoutInflater().inflate(R.layout.depense,null);
-
         spinnerCategorie = (Spinner) view.findViewById(R.id.spinnerCategorie);
-
+         Spinner spinnerCompte =view.findViewById(R.id.spinnerCompte);
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+        dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // attaching data adapter to spinner
         spinnerCategorie.setAdapter(dataAdapter);
+        spinnerCompte.setAdapter(dataAdapter1);
     }
 
     @Override
@@ -152,38 +176,35 @@ public void ab(){
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.adddepense) {
-            Toast.makeText(this,"Ajouter Depense",Toast.LENGTH_SHORT).show();
             final AlertDialog.Builder depCategorie = new AlertDialog.Builder(accueil.this);
             depCategorie.setTitle("Ajouter une Depense");
 
             loadSpinnerData();
-//            View view=getLayoutInflater().inflate(R.layout.depense,null);
-//
-//            spinnerCategorie = (Spinner) view.findViewById(R.id.spinnerCategorie);
-            etPrix = (TextInputLayout) view.findViewById(R.id.etPrix);
-            spinnerDevise = (Spinner) view.findViewById(R.id.spinnerDevise);
+
+            etPrix = (TextInputLayout) view.findViewById(R.id.cd);
+
             etNote = (TextInputLayout) view.findViewById(R.id.etNote);
 
             depCategorie.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String textCategorie = String.valueOf(spinnerCategorie.getSelectedItem());
-                    String textDevise = String.valueOf(spinnerDevise.getSelectedItem());
-                     String prix= etPrix.getEditText().getText().toString();
-                     String note= etNote.getEditText().getText().toString();
+                    String prix= etPrix.getEditText().getText().toString();
+                    String note= etNote.getEditText().getText().toString();
 
-                    if (textCategorie.equals("") ){
+                    if (prix.equals("") ){
                         Toast.makeText(accueil.this, "Tous les champs sont obligatoires!!!"+textCategorie+" et "+prix, Toast.LENGTH_SHORT).show();
                     }else{
-                            Boolean insert = accesLocal.AddCategorie(textCategorie, prix, textDevise, note, currentDateandTime, String.valueOf(user.userName()));
-                            if (insert == true){
-                                Toast.makeText(accueil.this, "enregistrement Depense avec succes!!!", Toast.LENGTH_SHORT).show();
-                                tab_cat.refreshTabAujourdhui();
-                                tab_cat.AlldepenseToday();
-                                tab_sem.refreshTabSemaine();
-                            }else{
-                                Toast.makeText(accueil.this, "enregistrement echouee!!!", Toast.LENGTH_SHORT).show();
-                            }
+                        Boolean insert = accesLocal.AddCategorie(textCategorie, prix, "HTG", note, currentDateandTime, String.valueOf(user.userName()));
+                        if (insert == true){
+                            Toast.makeText(accueil.this, "enregistrement Depense avec succes!!!", Toast.LENGTH_SHORT).show();
+                            tab_cat.refreshTabAujourdhui();
+                            tab_cat.AlldepenseToday();
+                            tab_sem.refreshTabSemaine();
+                            //Alldepense();
+                        }else{
+                            Toast.makeText(accueil.this, "enregistrement echouee!!!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });
@@ -241,7 +262,24 @@ public void ab(){
 
         }
 
+        if (id == R.id.recherche) {
+
+            Toast.makeText(this,"Parametre",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this,recherche.class));
+            return true;
+
+        }
+
+
+        if (id == R.id.logout) {
+
+            Toast.makeText(this,"Parametre",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(accueil.this,MainActivity.class));
+            finish();
+            return true;
+
+        }
+
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -24,6 +24,16 @@
         <item>Visualiser/modifier compte</item>
     </string-array>
 
+    <string-array name="typecompte">
+        <item>Courant</item>
+        <item>Epargne</item>
+    </string-array>
+
+    <string-array name="tcompte">
+        <item>HTG</item>
+        <item>USD</item>
+    </string-array>
+
     <string-array name="paramgeneraux">
         <item>Devise</item>
         <item>Recevoir un rappel</item>
@@ -35,8 +45,10 @@
         <item>Supprimer une categorie</item>
     </string-array>
 
-    <string-array name="gestionsauve">
-        <item>Exporter en Feuille de Calcul</item>
+    <string-array name="autres">
+        <item>Rapport des depenses</item>
+        <item>Statistique</item>
+        <item>Exporter en Format excel</item>
     </string-array>
 
 

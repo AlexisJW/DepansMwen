@@ -9,143 +9,84 @@
     android:layout_margin="20dp"
     >
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:orientation="vertical">
+        android:text="Categorie"
+        android:padding="10dp"
+        />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Categorie"
-            android:textSize="25sp" />
-
-        <Spinner
-            android:id="@+id/spinnerCategorie"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/spincategorie" />
-    </LinearLayout>
-
-    <LinearLayout
+    <Spinner
+        android:id="@+id/spinnerCategorie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:orientation="vertical" >
+        android:padding="10dp"
+        />
 
-        <!--y64-->
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Compte"
+        android:padding="10dp"
+        />
 
-        <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:id="@+id/txtInputNom"-->
-        <!--android:layout_width="360dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--tools:ignore="MissingConstraints"-->
-        <!--android:focusable="true"-->
-        <!--android:focusableInTouchMode="true"-->
-        <!--android:hint="NOM"-->
-        <!--android:ems="10"-->
-        <!--android:inputType="text"-->
-        <!--android:textSize="20sp"-->
-        <!--android:layout_marginTop="5dp">-->
+    <Spinner
+        android:id="@+id/spinnerCompte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" />
 
-        <!--<EditText-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
-        <!--</android.support.design.widget.TextInputLayout>-->
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/etPrix"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
+
+    <TextView
+
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:text="Prix"
+        android:layout_height="wrap_content"
+        />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/cd"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+
+        android:focusableInTouchMode="true">
+
+        <EditText
+
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:textSize="20sp"
-            android:hint="Prix"
-            tools:ignore="MissingConstraints"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+
+            />
+
+    </android.support.design.widget.TextInputLayout>
 
 
-            <EditText
-                android:inputType="numberDecimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </android.support.design.widget.TextInputLayout>
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="10dp"
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Date"
-            android:textSize="25sp"
+        android:text="Note" />
 
-            android:textAlignment="center"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/etNote"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/spinnerDevise"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/devise" />
-
-        <Spinner
-            android:id="@+id/spinner5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Spinner
-            android:id="@+id/spinner6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        tools:ignore="MissingConstraints"
+        android:padding="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/etNote"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
+        <EditText
             android:layout_width="match_parent"
-            android:ems="10"
-            android:textSize="20sp"
-            android:hint="Note"
-            android:inputType="text"
-            tools:ignore="MissingConstraints"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:layout_height="wrap_content" />
 
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </android.support.design.widget.TextInputLayout>
-    </LinearLayout>
+    </android.support.design.widget.TextInputLayout>>
 </LinearLayout>

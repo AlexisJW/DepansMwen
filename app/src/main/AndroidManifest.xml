@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Parametre" />
+        <activity android:name=".recherche" />
         <activity android:name=".accueil" />
         <activity android:name=".inscription" />
         <activity android:name=".MainActivity">

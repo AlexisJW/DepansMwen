@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,42 +13,53 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:layout_weight="1"
-            android:text="Bank" />
+            android:padding="10dp"
+            android:text="Bank"
+            app:fontFamily="serif" />
 
         <EditText
-            android:id="@+id/editbank"
+            android:id="@+id/editbankV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="15dp"
+            android:enabled="false"
+
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:padding="15dp" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:layout_weight="1"
-            android:text="No du compte" />
+            android:padding="10dp"
+            android:text="No du compte"
+            app:fontFamily="serif" />
 
         <EditText
-            android:id="@+id/editnocompte"
+            android:id="@+id/editnocompteV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="15dp"
+            android:enabled="false"
+
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="textPersonName"
+            android:padding="15dp"
+
+            />
+
         <TextView
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:layout_weight="1"
-            android:text="Type de Compte" />
+            android:padding="10dp"
+
+            android:text="Type de Compte"
+            app:fontFamily="serif" />
 
         <Spinner
             android:id="@+id/spinnertypedecompte"
@@ -56,6 +68,24 @@
             android:layout_weight="1"
             android:entries="@array/typecompte"
             android:padding="15dp" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Etat du compte"
+            android:padding="15dp"
+            />
+
+        <CheckBox
+            android:id="@+id/checketat"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Actif"
+            android:padding="15dp"/>
 
 
     </LinearLayout>

@@ -17,10 +17,24 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
     private Context MonContext;
     private ArrayList<InformationToday> listInformationToday;
     private ArrayList<InformationToday> monArrayList;
+    private OnItemClickListener monOnItemClickListener;
 
 
+    public InformationTodayAdapter(Context monContext, ArrayList<InformationToday> listInformationToday) {
+        MonContext = monContext;
+        this.listInformationToday = listInformationToday;
+        this.monArrayList = listInformationToday;
+    }
 
-    public class InformationTodayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void SetOnItemClickListener(OnItemClickListener listener){
+     monOnItemClickListener = listener;
+    }
+
+    public class InformationTodayViewHolder extends RecyclerView.ViewHolder {
 
         public TextView montantViewHolder;
         public TextView montant;
@@ -31,7 +45,7 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
         public TextView noteViewHolder;
         public TextView note;
 
-        public InformationTodayViewHolder(@NonNull View itemView) {
+        public InformationTodayViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             montantViewHolder = itemView.findViewById(R.id.tvMontant);
             montant = itemView.findViewById(R.id.idmont);
@@ -41,35 +55,26 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
             devise = itemView.findViewById(R.id.idDevise);
             noteViewHolder = itemView.findViewById(R.id.tvNote);
             note = itemView.findViewById(R.id.idNote);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                          listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
-
-
-        @Override
-        public void onClick(View v) {
-            int position = getAdapterPosition();
-            if (position != RecyclerView.NO_POSITION){
-                //Toast.makeText(MonContext , "li klike!!!", Toast.LENGTH_SHORT).show();
-
-                //InformationToday informationToday = listInformationToday.get(position);
-
-                Intent intent = new Intent(MonContext, inscription.class);
-                //intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
-                MonContext.startActivity(intent);
-            }
-        }
-    }
-
-    public InformationTodayAdapter(Context monContext, ArrayList<InformationToday> listInformationToday) {
-        MonContext = monContext;
-        this.listInformationToday = listInformationToday;
-        this.monArrayList = listInformationToday;
     }
 
     @NonNull
     @Override
     public InformationTodayViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(MonContext).inflate(R.layout.posttoday, viewGroup, false);
-        return new InformationTodayViewHolder(view);
+        return new InformationTodayViewHolder(view, monOnItemClickListener);
     }
 
     @Override
@@ -79,7 +84,7 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
       Holder.montantViewHolder.setText(informationsToday.getMontant());
       Holder.montant.setText("MONTANT: ");
       Holder.categorieViewHolder.setText(informationsToday.getCategorie());
-      Holder.categorie.setText("CATEGORIE: ");
+      Holder.categorie.setText("LIBELLE: ");
       Holder.deviseViewHolder.setText(informationsToday.getDevise());
       Holder.devise.setText("DEVISE: ");
       Holder.note.setText("NOTE: ");

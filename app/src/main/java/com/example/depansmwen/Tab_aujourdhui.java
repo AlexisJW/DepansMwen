@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +33,17 @@ public class Tab_aujourdhui extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-         v   =inflater.inflate(R.layout.tab_aujourdhui,container,false);
+        v   =inflater.inflate(R.layout.tab_aujourdhui,container,false);
 
+        refreshTabAujourdhui();
+        return v;
+    }
+
+    public void testMontant(int position, String montant){
+
+    }
+
+    public  void refreshTabAujourdhui(){
         accesLocal = new AccesLocal(this.getContext());
         recyclerView = (RecyclerView) v.findViewById(R.id.IdRecycleView);
         tvAllDepense = (TextView) v.findViewById(R.id.tvAllDepense);
@@ -40,25 +51,18 @@ public class Tab_aujourdhui extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         //recyclerView.setHasFixedSize(true);
         allInformationsToday = accesLocal.ListInformationFromBd();
-        AlldepenseToday();
         if (allInformationsToday.size() > 0){
             recyclerView.setVisibility(View.VISIBLE);
             monAdapter = new InformationTodayAdapter(this.getContext(), allInformationsToday);
             recyclerView.setAdapter(monAdapter);
             AlldepenseToday();
-        }else{
-            recyclerView.setVisibility(View.GONE);
-            Toast.makeText(this.getContext(), "Il n'a pas d'enregistrement de depense dans la base de donnees pour aujourd'hui!", Toast.LENGTH_LONG).show();
-        }
-        return v;
-    }
-
-    public  void refreshTabAujourdhui(){
-        allInformationsToday = accesLocal.ListInformationFromBd();
-        if (allInformationsToday.size() > 0){
-            recyclerView.setVisibility(View.VISIBLE);
-            monAdapter = new InformationTodayAdapter(this.getContext(), allInformationsToday);
-            recyclerView.setAdapter(monAdapter);
+            monAdapter.SetOnItemClickListener(new InformationTodayAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    allInformationsToday.remove(position);
+                    monAdapter.notifyItemChanged(position);
+                }
+            });
             AlldepenseToday();
         }else{
             recyclerView.setVisibility(View.GONE);

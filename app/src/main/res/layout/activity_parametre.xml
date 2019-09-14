@@ -162,7 +162,7 @@
             android:background="@color/colorPrimaryDark"
             android:cacheColorHint="@color/colorPrimaryDark"
             android:divider="@color/colorPrimaryDark"
-            android:entries="@array/gestionsauve"
+            android:entries="@array/autres"
             android:paddingLeft="20dp" />
 
 
