@@ -19,6 +19,7 @@ public class Tab_semaine extends Fragment {
     private InformationTodayAdapter monAdapter;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
+    String recherche ="";
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
@@ -51,5 +52,16 @@ public class Tab_semaine extends Fragment {
             recyclerView.setVisibility(View.GONE);
             Toast.makeText(this.getContext(), "Il n'a pas d'enregistrement de depense dans la base de donnees!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void GestionRecherche(){
+        if (monAdapter != null){
+            monAdapter.getFilter().filter(recherche);
+        }
+    }
+
+    public String textRecherche(String txtRecherche){
+        recherche = txtRecherche;
+        return txtRecherche;
     }
 }

@@ -7,10 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTodayAdapter.InformationTodayViewHolder> {
 
@@ -91,8 +93,44 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
       Holder.noteViewHolder.setText(informationsToday.getNote());
     }
 
+    public Filter getFilter(){
+        return filerRecherche;
+    }
+
     @Override
     public int getItemCount() {
         return listInformationToday.size();
     }
+
+    private Filter filerRecherche = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            Integer allMontant = 0;
+            String charString = constraint.toString();
+            if (charString == null || charString.length() == 0) {
+                listInformationToday = monArrayList;
+            } else {
+                ArrayList<InformationToday> filteredList = new ArrayList<>();
+
+               for (InformationToday informationToday : monArrayList) {
+                    if (informationToday.getCategorie().toLowerCase().contains(constraint.toString())) {
+                        filteredList.add(informationToday);
+                        //allMontant += Integer.parseInt(informationToday.getMontant());
+                    }
+                }
+                listInformationToday = filteredList;
+               }
+
+            FilterResults results = new FilterResults();
+            results.values = listInformationToday;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            listInformationToday = (ArrayList<InformationToday>) results.values;
+            notifyDataSetChanged();
+        }
+    };
 }

@@ -21,15 +21,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tab_aujourdhui extends Fragment {
-      private View.OnClickListener listener;
+    private View.OnClickListener listener;
     View v;
     AccesLocal accesLocal;
 
     private ArrayList<InformationToday> allInformationsToday = new ArrayList<>();
+    private ArrayList<InformationToday> asdf = new ArrayList<>();
     private InformationTodayAdapter monAdapter;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     TextView tvAllDepense;
+    String recherche ="";
+    String montant ="";
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class Tab_aujourdhui extends Fragment {
 
     }
 
-    public  void refreshTabAujourdhui(){
+    public void refreshTabAujourdhui(){
         accesLocal = new AccesLocal(this.getContext());
         recyclerView = (RecyclerView) v.findViewById(R.id.IdRecycleView);
         tvAllDepense = (TextView) v.findViewById(R.id.tvAllDepense);
@@ -59,8 +62,8 @@ public class Tab_aujourdhui extends Fragment {
             monAdapter.SetOnItemClickListener(new InformationTodayAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-                    allInformationsToday.remove(position);
-                    monAdapter.notifyItemChanged(position);
+//                    allInformationsToday.remove(position);
+//                    monAdapter.notifyItemChanged(position);
                 }
             });
             AlldepenseToday();
@@ -71,10 +74,23 @@ public class Tab_aujourdhui extends Fragment {
     }
 
     public void AlldepenseToday(){
-
         Integer all = accesLocal.AllDepenseToday();
         tvAllDepense.setText("Depense d'aujourd'hui est: "+all);
-        //Toast.makeText(this.getContext(),"All Depense " +all,Toast.LENGTH_LONG).show();
     }
+
+    public void GestionRecherche(){
+        if (monAdapter != null){
+           monAdapter.getFilter().filter(recherche);
+        }
+    }
+
+    public String textRecherche(String txtRecherche){
+        recherche = txtRecherche;
+        return txtRecherche;
+    }
+
+//    public String textMontant(String txtMontant){
+//        return montant= txtMontant;
+//    }
 
 }

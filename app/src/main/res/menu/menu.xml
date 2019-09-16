@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/adddepense"
-        android:enabled="true"
-        android:icon="@drawable/add"
-        android:title="Ajouter une Depense"
-        app:showAsAction="collapseActionView|withText" />
-
-    <item
-        android:id="@+id/recherche"
-        android:enabled="true"
-        android:icon="@drawable/add"
-        android:title="Rechercher ..."
-        app:showAsAction="collapseActionView|withText" />
 
     <item
         android:id="@+id/parametre"
@@ -37,5 +24,12 @@
         android:icon="@drawable/add"
         android:title="Deconnexion"
         app:showAsAction="collapseActionView|withText" />
+
+    <item
+        android:id="@+id/search"
+        android:icon="@android:drawable/ic_search_category_default"
+        android:title="Ajouter Une depense"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
 
 </menu>
