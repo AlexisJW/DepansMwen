@@ -43,9 +43,12 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
         public TextView categorieViewHolder;
         public TextView categorie;
         public TextView deviseViewHolder;
+        public TextView compteViewHolder;
         public TextView devise;
         public TextView noteViewHolder;
         public TextView note;
+        public TextView compte;
+        public Integer id;
 
         public InformationTodayViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -53,10 +56,16 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
             montant = itemView.findViewById(R.id.idmont);
             categorieViewHolder = itemView.findViewById(R.id.tvCategorie);
             categorie = itemView.findViewById(R.id.idCat);
+
             deviseViewHolder = itemView.findViewById(R.id.tvDevise);
             devise = itemView.findViewById(R.id.idDevise);
+            compteViewHolder = itemView.findViewById(R.id.tvCompte);
+            compte = itemView.findViewById(R.id.idCompte);
+
             noteViewHolder = itemView.findViewById(R.id.tvNote);
             note = itemView.findViewById(R.id.idNote);
+
+            id = 0;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,10 +96,16 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
       Holder.montant.setText("MONTANT: ");
       Holder.categorieViewHolder.setText(informationsToday.getCategorie());
       Holder.categorie.setText("LIBELLE: ");
+
       Holder.deviseViewHolder.setText(informationsToday.getDevise());
       Holder.devise.setText("DEVISE: ");
+      Holder.compteViewHolder.setText(informationsToday.getCompte());
+      Holder.compte.setText("COMPTE: ");
+
       Holder.note.setText("NOTE: ");
       Holder.noteViewHolder.setText(informationsToday.getNote());
+
+      Holder.id = informationsToday.getId();
     }
 
     public Filter getFilter(){
@@ -105,7 +120,6 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
     private Filter filerRecherche = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            Integer allMontant = 0;
             String charString = constraint.toString();
             if (charString == null || charString.length() == 0) {
                 listInformationToday = monArrayList;
@@ -115,7 +129,6 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
                for (InformationToday informationToday : monArrayList) {
                     if (informationToday.getCategorie().toLowerCase().contains(constraint.toString())) {
                         filteredList.add(informationToday);
-                        //allMontant += Integer.parseInt(informationToday.getMontant());
                     }
                 }
                 listInformationToday = filteredList;

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AccesLocal {
     private String nomBase = "bdDepansMwen.sqlite";
-    private Integer versionBase = 5;
+    private Integer versionBase = 8;
     private MySqlLiteOpenHelper accesBd;
     private SQLiteDatabase bd;
     String currentDateandTime;
@@ -55,7 +55,7 @@ public class AccesLocal {
         else return false;
     }
 
-    public boolean AddCategorie(String categorie, String prix, String devise, String note, String date, String user){
+    public boolean AddCategorie(String categorie, String prix, String devise, String note, String date, String user, String typeCompte){
         bd = accesBd.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("categorie", categorie);
@@ -64,8 +64,9 @@ public class AccesLocal {
         contentValues.put("note", note);
         contentValues.put("date", date);
         contentValues.put("user", user);
+        contentValues.put("typeCompte", typeCompte);
 
-        long ins = bd.insert("TableCategorie4", null, contentValues);
+        long ins = bd.insert("TableDepense", null, contentValues);
         if(ins ==- 1) return false;
         else return true;
     }
@@ -102,7 +103,7 @@ public class AccesLocal {
 
     public ArrayList<InformationToday> ListInformationFromBd(){
         bd = accesBd.getReadableDatabase();
-        String sql = "select * from TableCategorie4 where date = '"+currentDateandTime+"' and user = '"+String.valueOf(user.userName())+"' ";
+        String sql = "select * from TableDepense where date = '"+currentDateandTime+"' and user = '"+String.valueOf(user.userName())+"' ";
         ArrayList<InformationToday> list = new ArrayList<>();
         Cursor cursor = bd.rawQuery(sql, null);
         if(cursor.moveToLast()){
@@ -111,7 +112,9 @@ public class AccesLocal {
                 String montantBase = cursor.getString(1);
                 String deviseBase = cursor.getString(2);
                 String noteBase = cursor.getString(3);
-                list.add(new InformationToday(categorieBase, montantBase, deviseBase, noteBase));
+                String compteBase = cursor.getString(6);
+                Integer idBase = cursor.getInt(7);
+                list.add(new InformationToday(categorieBase, montantBase, deviseBase, noteBase, compteBase, idBase));
             }while (cursor.moveToPrevious());
         }
         cursor.close();
@@ -120,7 +123,7 @@ public class AccesLocal {
 
     public ArrayList<InformationToday> ListInformationSemaineFromBd(){
         bd = accesBd.getReadableDatabase();
-        String sql = "select * from TableCategorie4 where user = '"+String.valueOf(user.userName())+"' ";
+        String sql = "select * from TableDepense where user = '"+String.valueOf(user.userName())+"' ";
         ArrayList<InformationToday> list = new ArrayList<>();
         Cursor cursor = bd.rawQuery(sql, null);
         if(cursor.moveToLast()){
@@ -129,7 +132,9 @@ public class AccesLocal {
                 String montantBase = cursor.getString(1);
                 String deviseBase = cursor.getString(2);
                 String noteBase = cursor.getString(3);
-                list.add(new InformationToday(categorieBase, montantBase, deviseBase, noteBase));
+                String compteBase = cursor.getString(6);
+                Integer idBase = cursor.getInt(7);
+                list.add(new InformationToday(categorieBase, montantBase, deviseBase, noteBase, compteBase, idBase));
             }while (cursor.moveToPrevious());
         }
         cursor.close();
@@ -162,7 +167,7 @@ public class AccesLocal {
         Integer allDepense = 0;
 
         bd = accesBd.getReadableDatabase();
-        String sql = "select * from TableCategorie4 where date = '"+currentDateandTime+"' and user = '"+String.valueOf(user.userName())+"' ";
+        String sql = "select * from TableDepense where date = '"+currentDateandTime+"' and user = '"+String.valueOf(user.userName())+"' ";
         ArrayList<InformationToday> list = new ArrayList<>();
         Cursor cursor = bd.rawQuery(sql, null);
         if(cursor.moveToLast()){
@@ -318,6 +323,13 @@ public class AccesLocal {
 
         long ins = bd.insert("TableEnregistreCompte9", null, contentValues);
         if(ins ==- 1) return false;
+        else return true;
+    }
+
+    public boolean deleteDepense(Integer id){
+        bd = accesBd.getWritableDatabase();
+        Cursor cursor = bd.rawQuery("Delete from TableDepense where id=?", new String[]{String.valueOf(id)});
+        if (cursor.getCount() < 0) return false;
         else return true;
     }
 }

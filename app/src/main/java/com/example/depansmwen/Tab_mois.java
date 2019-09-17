@@ -24,7 +24,7 @@ public class Tab_mois extends Fragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-    View rootView   =inflater.inflate(R.layout.tab_mois,container,false);
+    View rootView = inflater.inflate(R.layout.tab_mois,container,false);
 
     accesLocal = new AccesLocal(this.getContext());
     recyclerView = (RecyclerView) rootView.findViewById(R.id.IdRecycleView);

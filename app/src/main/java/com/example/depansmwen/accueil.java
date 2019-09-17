@@ -40,6 +40,7 @@ import java.util.List;
 public class accueil extends AppCompatActivity {
 
     Spinner spinnerCategorie;
+    Spinner spinnerCompte;
     private TextInputLayout etPrix;
     Spinner spinnerDevise;
     private TextInputLayout etNote;
@@ -84,13 +85,14 @@ public class accueil extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String textCategorie = String.valueOf(spinnerCategorie.getSelectedItem());
+                        String textCompte = String.valueOf(spinnerCompte.getSelectedItem());
                         String prix= etPrix.getEditText().getText().toString();
                         String note= etNote.getEditText().getText().toString();
 
                         if (prix.equals("") ){
                             Toast.makeText(accueil.this, "Tous les champs sont obligatoires!!!"+textCategorie+" et "+prix, Toast.LENGTH_SHORT).show();
                         }else{
-                            Boolean insert = accesLocal.AddCategorie(textCategorie, prix, "HTG", note, currentDateandTime, String.valueOf(user.userName()));
+                            Boolean insert = accesLocal.AddCategorie(textCategorie, prix, "HTG", note, currentDateandTime, String.valueOf(user.userName()), textCompte);
                             if (insert == true){
                                 Toast.makeText(accueil.this, "enregistrement Depense avec succes!!!", Toast.LENGTH_SHORT).show();
                                 tab_cat.refreshTabAujourdhui();
@@ -125,11 +127,9 @@ public class accueil extends AppCompatActivity {
         alertDeconnect.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // finish();
                 System.exit(0);
             }
         });
-        // super.onBackPressed();
         alertDeconnect.setNegativeButton("Non", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -138,14 +138,6 @@ public class accueil extends AppCompatActivity {
         });
         alertDeconnect.show();
 
-    }
-
-    public void ab(){
-    Toast.makeText(accueil.this , "li klike!!!", Toast.LENGTH_SHORT).show();
-}
-
-    public String getCurrentDateandTime() {
-        return currentDateandTime;
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -239,7 +231,7 @@ public class accueil extends AppCompatActivity {
         //ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, labels);
         view=getLayoutInflater().inflate(R.layout.depense,null);
         spinnerCategorie = (Spinner) view.findViewById(R.id.spinnerCategorie);
-         Spinner spinnerCompte =view.findViewById(R.id.spinnerCompte);
+        spinnerCompte =view.findViewById(R.id.spinnerCompte);
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -100,6 +100,30 @@
         android:orientation="horizontal">
 
       <TextView
+          android:id="@+id/idCompte"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginRight="75dp"
+          android:layout_marginBottom="5dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+          tools:text="Compte: " />
+
+      <TextView
+          android:id="@+id/tvCompte"
+          android:layout_width="104dp"
+          android:layout_height="match_parent"
+          android:layout_marginBottom="5dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+          tools:text="Compte" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+      <TextView
           android:id="@+id/idNote"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"

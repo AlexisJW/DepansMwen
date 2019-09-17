@@ -33,6 +33,8 @@ public class Tab_aujourdhui extends Fragment {
     TextView tvAllDepense;
     String recherche ="";
     String montant ="";
+    Integer depenseSuprim = 0;
+    Integer id, aa;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
@@ -62,20 +64,24 @@ public class Tab_aujourdhui extends Fragment {
             monAdapter.SetOnItemClickListener(new InformationTodayAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-//                    allInformationsToday.remove(position);
-//                    monAdapter.notifyItemChanged(position);
+                    Boolean delete = accesLocal.deleteDepense(allInformationsToday.get(position).getId());
+                    if (delete == true){
+                        AlldepenseToday();
+                        allInformationsToday.remove(position);
+                        monAdapter.notifyItemRemoved(position);
+                    }
                 }
             });
             AlldepenseToday();
         }else{
             recyclerView.setVisibility(View.GONE);
-            Toast.makeText(this.getContext(), "Il n'a pas d'enregistrement de depense dans la base de donnees pour aujourd'hui!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getContext(), "N'oubliez pas d'ajouter vos depenses quotidiennes!!", Toast.LENGTH_LONG).show();
         }
     }
 
     public void AlldepenseToday(){
         Integer all = accesLocal.AllDepenseToday();
-        tvAllDepense.setText("Depense d'aujourd'hui est: "+all);
+        tvAllDepense.setText("Depense d'aujourd'hui est: "+all +" Gourde(s)");
     }
 
     public void GestionRecherche(){
@@ -88,9 +94,4 @@ public class Tab_aujourdhui extends Fragment {
         recherche = txtRecherche;
         return txtRecherche;
     }
-
-//    public String textMontant(String txtMontant){
-//        return montant= txtMontant;
-//    }
-
 }
