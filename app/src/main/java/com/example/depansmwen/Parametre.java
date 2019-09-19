@@ -16,7 +16,6 @@ public class Parametre extends AppCompatActivity   {
     AccesLocal accesLocal;
     static MainActivity user;
     ListView list_cat = null;
-    ListView list_param = null;
     ListView list_compte=null;
     CheckBox chk;
     ListView param = null;
@@ -32,7 +31,6 @@ public class Parametre extends AppCompatActivity   {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parametre);
-        //getSupportActionBar().setTitle("Parametre");
         accesLocal = new AccesLocal(Parametre.this);
         List<String> list = new ArrayList<>();
         List<String> list1 = new ArrayList<>();
@@ -40,8 +38,6 @@ public class Parametre extends AppCompatActivity   {
         list1.add("Devise");
 
         list_cat= findViewById(R.id.list_cat);
-//        list_param= findViewById(R.id.list_param1);
-//        param= findViewById(R.id.param);
         list_compte=findViewById(R.id.list_compte);
         spinnercompte = (Spinner) findViewById(R.id.spinnercompte);
 
@@ -385,7 +381,6 @@ public class Parametre extends AppCompatActivity   {
     }
 
     private void Modifier_categorie() {
-
         final AlertDialog.Builder modifCategorie = new AlertDialog.Builder(Parametre.this);
         modifCategorie.setTitle("Modifier une  Categorie");
         loadSpinnerData();

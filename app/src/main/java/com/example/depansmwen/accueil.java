@@ -29,9 +29,13 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +68,16 @@ public class accueil extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
+
+    View viewModifierCat;
+    View viewDeleteCat;
+    View  viewvc;
+    View viewvc1;
+    Spinner spinnerModifierCat,spinnercompte;
+    Spinner spinnerDeleteCat;
+    ListView list_cat = null;
+    ListView list_compte=null;
+    CheckBox chk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +165,11 @@ public class accueil extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        list_cat= findViewById(R.id.list_cat);
+        list_compte=findViewById(R.id.list_compte);
+        spinnercompte = (Spinner) findViewById(R.id.spinnercompte);
+        loadSpinnerDataPara();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -189,14 +208,22 @@ public class accueil extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        Class fragmentClass = null;
         switch(menuItem.getItemId()) {
-            case R.id.parametre:
-                startActivity(new Intent(this,Parametre.class));
+                case R.id.addCategorie:
+                    Ajouter_categorie();
                 break;
-
+                case R.id.modifierCategorie:
+                    Modifier_categorie();
+                break;
+                case R.id.supCat:
+                    Supprimer_categorie();
+                break;
+                case R.id.addCompte:
+                    Ajouter_compte();
+                break;
+                case R.id.modifierCompte:
+                    Visualiser_compte();
+                break;
             case R.id.apropos:
                     final AlertDialog.Builder apropos = new AlertDialog.Builder(this);
                     apropos.setTitle("A Propos");
@@ -222,7 +249,7 @@ public class accueil extends AppCompatActivity {
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
         // Set action bar title
-        setTitle(menuItem.getTitle());
+        //setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
     }
@@ -348,46 +375,390 @@ public class accueil extends AppCompatActivity {
         spinnerCompte.setAdapter(dataAdapter1);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    private void loadSpinnerDataPara() {
+        List<String> labels = accesLocal.getAllSpinners();
 
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels);
+        //ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, labels);
 
-        if (id == R.id.home) {
-            mDrawer.openDrawer(GravityCompat.START);
-            return true;
-        }
+        viewModifierCat=getLayoutInflater().inflate(R.layout.activity_spinner_cat,null);
 
-        if (id == R.id.apropos) {
-            final AlertDialog.Builder apropos = new AlertDialog.Builder(this);
-            apropos.setTitle("A Propos");
-            apropos.setMessage("Cette Application a été developpé par 6 Developpeurs de l’université INUKA.");
+        spinnerModifierCat=viewModifierCat.findViewById(R.id.spinner);
 
-            apropos.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinnerModifierCat.setAdapter(dataAdapter);
+    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (drawerToggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
+//
+//        if (id == R.id.home) {
+//            mDrawer.openDrawer(GravityCompat.START);
+//            return true;
+//        }
+//
+//        if (id == R.id.apropos) {
+//            final AlertDialog.Builder apropos = new AlertDialog.Builder(this);
+//            apropos.setTitle("A Propos");
+//            apropos.setMessage("Cette Application a été developpé par 6 Developpeurs de l’université INUKA.");
+//
+//            apropos.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//            apropos.show();
+//
+//            return true;
+//        }
+//
+//        if (id == R.id.parametre) {
+//            startActivity(new Intent(this,Parametre.class));
+//            return true;
+//        }
+//
+//        if (id == R.id.logout) {
+//            startActivity(new Intent(accueil.this,MainActivity.class));
+//            finish();
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+
+    public void Ajouter_categorie(){
+        final AlertDialog.Builder ajoutCategorie = new AlertDialog.Builder(accueil.this);
+        ajoutCategorie.setTitle("Ajouter une Categorie");
+        final EditText input=new EditText(accueil.this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setHint("Saisir le nom...");
+        ajoutCategorie.setView(input);
+        ajoutCategorie.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String textCategorie = String.valueOf(input.getText());
+                if (textCategorie.equals("") ){
+                    Toast.makeText(accueil.this, "Le champs est obligatoire!!!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Boolean insert = accesLocal.EnregistreCategorie(textCategorie, String.valueOf(user.userName()));
+                    if (insert == true){
+                        Toast.makeText(accueil.this, "enregistrement Categorie avec succes!!!", Toast.LENGTH_SHORT).show();
+                        loadSpinnerData();
+                    }else{
+                        Toast.makeText(accueil.this, "enregistrement echouee!!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        ajoutCategorie.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        ajoutCategorie.show();
+    }
+
+    private void Modifier_categorie() {
+        final AlertDialog.Builder modifCategorie = new AlertDialog.Builder(accueil.this);
+        modifCategorie.setTitle("Modifier une  Categorie");
+        loadSpinnerData();
+        loadSpinnerDataPara();
+
+        final EditText edit=viewModifierCat.findViewById(R.id.edit);
+
+        modifCategorie.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String a = String.valueOf(edit.getText());
+                Boolean modification = accesLocal.updateEnregistreCategorie(spinnerModifierCat.getSelectedItem().toString(), String.valueOf(edit.getText()), String.valueOf(user.userName()));
+                if (modification == true){
+                    Toast.makeText(accueil.this, "Modification Categorie avec succes!!! "+a, Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(accueil.this, "echouee!!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        modifCategorie.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+
+        spinnerModifierCat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!(spinnerModifierCat.getSelectedItem().toString().equalsIgnoreCase("Liste des categories"))) {
+                    edit.setText(spinnerModifierCat.getSelectedItem().toString());
+                }
+                else {
+                    Toast.makeText(accueil.this, "Selectionnez une categorie !", Toast.LENGTH_SHORT).show();
+                    edit.setText("");
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        modifCategorie.setView(viewModifierCat);
+        AlertDialog dialog= modifCategorie.create();
+        dialog.show();
+    }
+
+    private void Supprimer_categorie() {
+        loadSpinnerDataForDelete();
+        final AlertDialog.Builder msupressCategorie = new AlertDialog.Builder(accueil.this);
+        msupressCategorie.setTitle("Supprimer une  Categorie");
+
+        msupressCategorie.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        msupressCategorie.setView(viewDeleteCat);
+        final AlertDialog dialog=msupressCategorie.create();
+        dialog.show();
+        spinnerDeleteCat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!(spinnerDeleteCat.getSelectedItem().toString().equalsIgnoreCase("Liste des categories"))) {
+                    final AlertDialog.Builder msupression = new AlertDialog.Builder(accueil.this);
+                    msupression.setTitle("Voulez-vous supprimer la categorie "+spinnerDeleteCat.getSelectedItem().toString()+" ?");
+
+                    msupression.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
+                        public void onClick(DialogInterface dialog1, int which) {
+                            Boolean delete = accesLocal.deleteEnregistreCategorie(spinnerDeleteCat.getSelectedItem().toString(),String.valueOf(user.userName()));
+                            if (delete == true){
+                                Toast.makeText(accueil.this, "Suppression Categorie avec succes!!!", Toast.LENGTH_SHORT).show();
+                                loadSpinnerDataForDelete();
+                            }else{
+                                Toast.makeText(accueil.this, "Operation echouee!!!", Toast.LENGTH_SHORT).show();
+                            }
+                            dialog.cancel();
                         }
                     });
-            apropos.show();
+                    msupression.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    msupression.show();
+                }
+            }
 
-            return true;
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void Ajouter_compte() {
+        final View view=getLayoutInflater().inflate(R.layout.creer_compte,null);
+        final AlertDialog.Builder ajoutcat = new AlertDialog.Builder(accueil.this);
+        ajoutcat.setTitle("Ajouter un Compte");
+        ajoutcat.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditText editbank =(EditText) view.findViewById(R.id.editbank);
+                EditText editnocompte = (EditText) view.findViewById(R.id.editnocompte);
+                Spinner spinnertypedecompte = (Spinner)view.findViewById(R.id.spinnertypedecompte);
+
+                if(editbank.getText().toString().equals("") || editnocompte.getText().toString().equals("")){
+                    Toast.makeText(accueil.this,"Vide remplir les champs",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    String nom=String.valueOf(user.userName());
+                    String bank = editbank.getText().toString();
+                    String nocompte=editnocompte.getText().toString();
+                    String typedecompte=String.valueOf(spinnertypedecompte.getSelectedItem());
+                    String etat="1";
+
+                    Boolean insert = accesLocal.EnregistreCompte(nom,bank,nocompte,typedecompte,etat);
+                    if (insert == true){
+                        Toast.makeText(accueil.this, "enregistrement Compte  succes!!!", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(accueil.this, "enregistrement echoue!!!", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+            }
+        });
+        ajoutcat.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        ajoutcat.setView(view);
+        AlertDialog dialog= ajoutcat.create();
+        dialog.show();
+    }
+
+    public void visual(String nombank){
+        EditText editkont = viewvc1.findViewById(R.id.editbankV);
+        EditText editnocompteV = viewvc1.findViewById(R.id.editnocompteV);
+        Spinner spinnertypedecompte = viewvc1.findViewById(R.id.spinnertypedecompte);
+        CheckBox checketat=viewvc1.findViewById(R.id.checketat);
+
+        editkont.setText(nombank);
+        editnocompteV.setText(accesLocal.getnocompte(nombank,String.valueOf(user.userName())));
+        String spinne=accesLocal.gettypecompte(nombank,String.valueOf(user.userName()));
+        if(spinne.equalsIgnoreCase("Courant"))
+            spinnertypedecompte.setSelection(0);
+        else
+            spinnertypedecompte.setSelection(1);
+
+        String etat =accesLocal.getetat(nombank,String.valueOf(user.userName()));
+        if(etat.equals("1")) {
+            checketat.setChecked(true);
+            checketat.setText("Compte Actif");
         }
-
-        if (id == R.id.parametre) {
-            startActivity(new Intent(this,Parametre.class));
-            return true;
+        else {
+            checketat.setChecked(false);
+            checketat.setText("Compte inActif");
         }
+    }
 
-        if (id == R.id.logout) {
-            startActivity(new Intent(accueil.this,MainActivity.class));
-            finish();
-            return true;
+    private void Visualiser_compte() {
+        loadSpinnerDataForCompte();
+        final AlertDialog.Builder dialogcompte = new AlertDialog.Builder(accueil.this);
+        dialogcompte.setTitle("Modifier/visualiser un compte");
+
+        dialogcompte.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        dialogcompte.setView(viewvc);
+        final AlertDialog dialog=dialogcompte.create();
+        dialog.show();
+
+        spinnercompte.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if(!(spinnercompte.getSelectedItem().toString().equalsIgnoreCase("Liste des Comptes"))) {
+                    final AlertDialog.Builder visual_cpte = new AlertDialog.Builder(accueil.this);
+                    visual_cpte.setTitle("Visualiser / Modifier");
+                    visual_cpte.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                        // Retourner les infos Concernant le compte selectionner
+
+                        @Override
+                        public void onClick(DialogInterface dialog1, int which) {
+                            updateEtat();
+                        }
+                    });
+                    visual_cpte.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    viewvc1=getLayoutInflater().inflate(R.layout.visualiser_compte,null);
+
+                    visual_cpte.setView(viewvc1);
+                    AlertDialog dialog= visual_cpte.create();
+                    dialog.show();
+                    // rampli bank lan
+                    visual(""+spinnercompte.getSelectedItem().toString());
+
+                    chk=viewvc1.findViewById(R.id.checketat);
+                    chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            if(chk.isChecked()){
+                                chk.setText("compte actif");
+                            }else chk.setText("compte Inactif");
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void updateEtat() {
+        String chktext = chk.getText().toString();
+        String chkavant = accesLocal.getetat(spinnercompte.getSelectedItem().toString(),String.valueOf(user.userName()));
+
+        if(chkavant.equals("1") && chktext.equalsIgnoreCase("Compte inActif")) {
+            // do something
+            boolean trouve=accesLocal.UpdateEtat("0",String.valueOf(user.userName()),spinnercompte.getSelectedItem().toString());
+            if(trouve == true){
+                Toast.makeText(accueil.this,"Etat du compte est Inactif",Toast.LENGTH_SHORT).show();
+            }
         }
+        if(chkavant.equals("0") && chktext.equalsIgnoreCase("Compte Actif")) {
+            Toast.makeText(accueil.this,"Etat du compte change",Toast.LENGTH_SHORT).show();
+            // do something
+            boolean trouve=accesLocal.UpdateEtat("1",String.valueOf(user.userName()),spinnercompte.getSelectedItem().toString());
+            if(trouve == true){
+                Toast.makeText(accueil.this,"Etat du compte est Actif",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void loadSpinnerDataForDelete() {
+        List<String> labels=accesLocal.getAllSpinners();
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels);
+        //ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, labels);
+        viewDeleteCat=getLayoutInflater().inflate(R.layout.activity_spinner_cat_supress,null);
+        spinnerDeleteCat=viewDeleteCat.findViewById(R.id.spinner);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+        spinnerDeleteCat.setAdapter(dataAdapter);
+    }
+
+    private void loadSpinnerDataForCompte() {
+        List<String> labels=accesLocal.getAllSpinnerscompte();
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels);
+        //ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, labels);
+        viewvc=getLayoutInflater().inflate(R.layout.spinnervisualcompte,null);
+        spinnercompte=viewvc.findViewById(R.id.spinnercompte);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+        spinnercompte.setAdapter(dataAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        viewDeleteCat=getLayoutInflater().inflate(R.layout.activity_spinner_cat_supress,null);
+        super.onResume();
     }
 }

@@ -2,14 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/parametre"
-        android:enabled="true"
-        android:icon="@drawable/add"
-        android:title="Parametre"
-        app:showAsAction="withText" />
-
-    <item android:title="GESTION DE CATEGORIE">
+    <item android:title="GESTION DE CATEGORIE" android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -28,7 +21,7 @@
         </menu>
     </item>
 
-    <item android:title="GESTION DE COMPTE">
+    <item android:title="GESTION DE COMPTE" android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -43,7 +36,8 @@
         </menu>
     </item>
 
-    <item android:title="GESTION DE SAUVEGARDE">
+    <item android:title="GESTION DE SAUVEGARDE"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -59,6 +53,10 @@
         </menu>
     </item>
 
+    <item android:title="********************************" android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title">
+        <menu>
+            <group android:checkableBehavior="single">
+
     <item
         android:id="@+id/apropos"
         android:enabled="true"
@@ -72,5 +70,8 @@
         android:icon="@drawable/add"
         android:title="Deconnexion"
         app:showAsAction="collapseActionView|withText" />
+            </group>
+        </menu>
+    </item>
 
 </menu>
