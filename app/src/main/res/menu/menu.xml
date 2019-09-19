@@ -7,7 +7,7 @@
         android:enabled="true"
         android:icon="@drawable/add"
         android:title="Parametre"
-        app:showAsAction="collapseActionView|withText" />
+        app:showAsAction="withText" />
 
 
 
@@ -25,11 +25,19 @@
         android:title="Deconnexion"
         app:showAsAction="collapseActionView|withText" />
 
-    <item
-        android:id="@+id/search"
-        android:icon="@android:drawable/ic_search_category_default"
-        android:title="Ajouter Une depense"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="android.support.v7.widget.SearchView"/>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_first_fragment"
+            android:icon="@drawable/add"
+            android:title="First" />
+        <item
+            android:id="@+id/nav_second_fragment"
+            android:icon="@drawable/delete"
+            android:title="Second" />
+        <item
+            android:id="@+id/nav_third_fragment"
+            android:icon="@drawable/monnaie"
+            android:title="Third" />
+    </group>
 
 </menu>

@@ -32,7 +32,7 @@ public class Parametre extends AppCompatActivity   {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parametre);
-        getSupportActionBar().setTitle("Parametre");
+        //getSupportActionBar().setTitle("Parametre");
         accesLocal = new AccesLocal(Parametre.this);
         List<String> list = new ArrayList<>();
         List<String> list1 = new ArrayList<>();
