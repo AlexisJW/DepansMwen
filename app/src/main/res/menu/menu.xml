@@ -9,7 +9,55 @@
         android:title="Parametre"
         app:showAsAction="withText" />
 
+    <item android:title="GESTION DE CATEGORIE">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/addCategorie"
+                    android:icon="@drawable/add"
+                    android:title="Ajouter Une categorie" />
+                <item
+                    android:id="@+id/modifierCategorie"
+                    android:icon="@drawable/edit"
+                    android:title="Modifier Une categorie" />
+                <item
+                    android:id="@+id/supCat"
+                    android:icon="@drawable/delete"
+                    android:title="Supprimmer Une categorie" />
+            </group>
+        </menu>
+    </item>
 
+    <item android:title="GESTION DE COMPTE">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/addCompte"
+                    android:icon="@drawable/add"
+                    android:title="Ajouter Un Compte" />
+                <item
+                    android:id="@+id/modifierCompte"
+                    android:icon="@drawable/edit"
+                    android:title="Visualiser/Modifier un Compte" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="GESTION DE SAUVEGARDE">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:icon="@drawable/add"
+                    android:title="Rapport Des Depenses" />
+                <item
+                    android:icon="@drawable/add"
+                    android:title="Statistique" />
+                <item
+                    android:icon="@drawable/add"
+                    android:title="Exporter en Format Excel" />
+            </group>
+        </menu>
+    </item>
 
     <item
         android:id="@+id/apropos"
@@ -24,20 +72,5 @@
         android:icon="@drawable/add"
         android:title="Deconnexion"
         app:showAsAction="collapseActionView|withText" />
-
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_first_fragment"
-            android:icon="@drawable/add"
-            android:title="First" />
-        <item
-            android:id="@+id/nav_second_fragment"
-            android:icon="@drawable/delete"
-            android:title="Second" />
-        <item
-            android:id="@+id/nav_third_fragment"
-            android:icon="@drawable/monnaie"
-            android:title="Third" />
-    </group>
 
 </menu>
