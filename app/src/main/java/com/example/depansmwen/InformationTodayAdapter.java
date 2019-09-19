@@ -95,7 +95,7 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
       Holder.montantViewHolder.setText(informationsToday.getMontant());
       Holder.montant.setText("MONTANT: ");
       Holder.categorieViewHolder.setText(informationsToday.getCategorie());
-      Holder.categorie.setText("LIBELLE: ");
+      Holder.categorie.setText("CATEGORIE: ");
 
       Holder.deviseViewHolder.setText(informationsToday.getDevise());
       Holder.devise.setText("DEVISE: ");
