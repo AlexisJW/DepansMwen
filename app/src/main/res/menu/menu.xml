@@ -7,14 +7,17 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/addCategorie"
+                    android:checked="true"
                     android:icon="@drawable/add"
                     android:title="Ajouter Une categorie" />
                 <item
                     android:id="@+id/modifierCategorie"
+                    android:checked="true"
                     android:icon="@drawable/edit"
                     android:title="Modifier Une categorie" />
                 <item
                     android:id="@+id/supCat"
+                    android:checked="true"
                     android:icon="@drawable/delete"
                     android:title="Supprimmer Une categorie" />
             </group>
@@ -26,28 +29,34 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/addCompte"
+                    android:checked="true"
                     android:icon="@drawable/add"
                     android:title="Ajouter Un Compte" />
                 <item
                     android:id="@+id/modifierCompte"
-                    android:icon="@drawable/edit"
+                    android:checked="true"
+                    android:icon="@android:drawable/ic_menu_view"
                     android:title="Visualiser/Modifier un Compte" />
             </group>
         </menu>
     </item>
 
-    <item android:title="GESTION DE SAUVEGARDE"
-        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title">
+    <item
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+        android:title="GESTION DE SAUVEGARDE">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:icon="@drawable/add"
+                    android:checked="true"
+                    android:icon="@android:drawable/ic_menu_info_details"
                     android:title="Rapport Des Depenses" />
                 <item
-                    android:icon="@drawable/add"
+                    android:checked="true"
+                    android:icon="@android:drawable/star_on"
                     android:title="Statistique" />
                 <item
-                    android:icon="@drawable/add"
+                    android:checked="true"
+                    android:icon="@android:drawable/stat_sys_upload"
                     android:title="Exporter en Format Excel" />
             </group>
         </menu>
@@ -57,19 +66,21 @@
         <menu>
             <group android:checkableBehavior="single">
 
-    <item
-        android:id="@+id/apropos"
-        android:enabled="true"
-        android:icon="@drawable/add"
-        android:title="A Propos"
-        app:showAsAction="collapseActionView|withText" />
+                <item
+                    android:id="@+id/apropos"
+                    android:checked="true"
+                    android:enabled="true"
+                    android:icon="@android:drawable/ic_dialog_info"
+                    android:title="A Propos"
+                    app:showAsAction="collapseActionView|withText" />
 
-    <item
-        android:id="@+id/logout"
-        android:enabled="true"
-        android:icon="@drawable/add"
-        android:title="Deconnexion"
-        app:showAsAction="collapseActionView|withText" />
+                <item
+                    android:id="@+id/logout"
+                    android:checked="true"
+                    android:enabled="true"
+                    android:icon="@android:drawable/ic_lock_power_off"
+                    android:title="Deconnexion"
+                    app:showAsAction="collapseActionView|withText" />
             </group>
         </menu>
     </item>
