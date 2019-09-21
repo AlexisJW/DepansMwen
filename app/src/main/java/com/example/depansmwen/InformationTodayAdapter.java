@@ -67,15 +67,28 @@ public class InformationTodayAdapter extends RecyclerView.Adapter<InformationTod
 
             id = 0;
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (listener != null){
+//                        int position = getAdapterPosition();
+//                        if (position != RecyclerView.NO_POSITION){
+//                          listener.onItemClick(position);
+//                        }
+//                    }
+//                }
+//            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View v) {
+                public boolean onLongClick(View v) {
                     if (listener != null){
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION){
-                          listener.onItemClick(position);
+                            listener.onItemClick(position);
                         }
                     }
+                    return false;
                 }
             });
         }

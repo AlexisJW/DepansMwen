@@ -393,49 +393,6 @@ public class accueil extends AppCompatActivity {
         spinnerModifierCat.setAdapter(dataAdapter);
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if (drawerToggle.onOptionsItemSelected(item)) {
-//            return true;
-//        }
-//
-//        if (id == R.id.home) {
-//            mDrawer.openDrawer(GravityCompat.START);
-//            return true;
-//        }
-//
-//        if (id == R.id.apropos) {
-//            final AlertDialog.Builder apropos = new AlertDialog.Builder(this);
-//            apropos.setTitle("A Propos");
-//            apropos.setMessage("Cette Application a été developpé par 6 Developpeurs de l’université INUKA.");
-//
-//            apropos.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//
-//                        }
-//                    });
-//            apropos.show();
-//
-//            return true;
-//        }
-//
-//        if (id == R.id.parametre) {
-//            startActivity(new Intent(this,Parametre.class));
-//            return true;
-//        }
-//
-//        if (id == R.id.logout) {
-//            startActivity(new Intent(accueil.this,MainActivity.class));
-//            finish();
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
     public void Ajouter_categorie(){
         final AlertDialog.Builder ajoutCategorie = new AlertDialog.Builder(accueil.this);
         ajoutCategorie.setTitle("Ajouter une Categorie");

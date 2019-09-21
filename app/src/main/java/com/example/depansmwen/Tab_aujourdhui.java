@@ -2,7 +2,9 @@ package com.example.depansmwen;
 
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,13 +65,28 @@ public class Tab_aujourdhui extends Fragment {
             AlldepenseToday();
             monAdapter.SetOnItemClickListener(new InformationTodayAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(int position) {
-                    Boolean delete = accesLocal.deleteDepense(allInformationsToday.get(position).getId());
-                    if (delete == true){
-                        AlldepenseToday();
-                        allInformationsToday.remove(position);
-                        monAdapter.notifyItemRemoved(position);
-                    }
+                public void onItemClick(final int position) {
+                    AlertDialog.Builder alertDeleteSupprimer = new AlertDialog.Builder(getContext());
+                    alertDeleteSupprimer.setTitle("Voulez vous supprimer cette Depense?");
+                    alertDeleteSupprimer.setIcon(R.drawable.delete);
+                    alertDeleteSupprimer.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Boolean delete = accesLocal.deleteDepense(allInformationsToday.get(position).getId());
+                            if (delete == true){
+                                AlldepenseToday();
+                                allInformationsToday.remove(position);
+                                monAdapter.notifyItemRemoved(position);
+                            }
+                        }
+                    });
+                    alertDeleteSupprimer.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    alertDeleteSupprimer.show();
                 }
             });
             AlldepenseToday();
